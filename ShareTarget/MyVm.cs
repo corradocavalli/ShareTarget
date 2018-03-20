@@ -23,6 +23,7 @@ namespace ShareTarget
 
         public MyVm()
         {
+            //We add an item when VM gets instantiated by the view
             this.Values.Add(new MyUnit());
             instance = this;
         }
