@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.DataTransfer.ShareTarget;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -25,12 +26,15 @@ namespace ShareTarget
     /// </summary>
     public sealed partial class ShareView : Page
     {
+        private ShareOperation operation;
+
+
         public ShareView()
         {
             this.InitializeComponent();
             this.Loaded += async (s, e) =>
             {
-                ShareViewViewModel.Operation.ReportStarted();
+                this.operation.ReportStarted();
 
                 //TAKE 1 :-(
                 //MyVm.Instance.Values.Add(new MyUnit());
@@ -51,8 +55,17 @@ namespace ShareTarget
                         });
                 }));
 
-                ShareViewViewModel.Operation.ReportCompleted();
+                this.operation.ReportCompleted();
             };
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is Windows.ApplicationModel.DataTransfer.ShareTarget.ShareOperation operation)
+            {
+                this.operation = operation;
+            }
+            
         }
     }
 }
