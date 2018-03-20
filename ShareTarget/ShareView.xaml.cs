@@ -36,11 +36,28 @@ namespace ShareTarget
             {
                 this.operation.ReportStarted();
 
+                //TAKE 1 :-(
+                //MyVm.Instance.Values.Add(new MyUnit());
+
+                //TAKE2 :-(
+                //await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                //{
+                //    MyVm.Instance.Values.Add(new MyUnit());
+                //});
+
+                //TAKE3 :-(
+                //await Window.Current.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                //{
+                //    MyVm.Instance.Values.Add(new MyUnit());
+                //});
+
                 //TAKE4 :-)
                 await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     MyVm.Instance.Values.Add(new MyUnit());
                 });
+
+
 
                 this.operation.ReportCompleted();
             };
